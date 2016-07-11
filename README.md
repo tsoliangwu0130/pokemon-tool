@@ -1,5 +1,5 @@
 # Pokémon-Tool
-This Pokémon tool is personal practice project.
+This Pokémon tool is personal practice project.<br/>
 All Pokémon data right reserved by the [original author (Pokémon Database)](http://pokemondb.net/).
 
 ### Installation
