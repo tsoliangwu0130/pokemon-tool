@@ -1,5 +1,6 @@
-# Pokemon-Tool
-This Pokemon tool is personal practice project. All Pokémon data right reserved by the [original author (Pokémon Database)](http://pokemondb.net/).
+# Pokémon-Tool
+This Pokémon tool is personal practice project.
+All Pokémon data right reserved by the [original author (Pokémon Database)](http://pokemondb.net/).
 
 ### Installation
 [Scrapy](http://scrapy.org/) installed in necessary. Simply run `pip install scrapy` to install it.
