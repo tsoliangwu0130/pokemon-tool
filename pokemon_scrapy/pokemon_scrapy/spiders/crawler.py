@@ -4,9 +4,15 @@ from bs4 import BeautifulSoup
 
 class PokemonCrawler(scrapy.Spider):
 	name       = 'pokemon_crawler'
-	start_urls = ['http://mpokemon.com/en/oras/pokemon.php?no=1']
+	start_urls = ['http://pokemondb.net/pokedex/national']
 
 	def parse(self, response):
-		res = BeautifulSoup(response.body, "lxml")
-		print res.select('#maincontent')[0].prettify() # pokemon details
-		print res.select('#maincontent2')[0].prettify() # available skills
+		domain      = 'http://pokemondb.net'
+		soup        = BeautifulSoup(response.body, "lxml")
+		pokemonList = soup.select('.infocard-tall')
+
+		for pokemon in pokemonList:
+			pokemonURL = domain + pokemon.a.attrs['href']
+			print pokemonURL
+
+		print len(pokemonList), "Pokemons found."
