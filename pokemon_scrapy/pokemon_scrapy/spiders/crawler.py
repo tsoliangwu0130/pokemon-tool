@@ -13,6 +13,8 @@ class PokemonCrawler(scrapy.Spider):
 
 		for pokemon in pokemonList:
 			pokemonURL = domain + pokemon.a.attrs['href']
-			print pokemonURL
+			yield scrapy.Request(pokemonURL, self.parse_detail)
 
-		print len(pokemonList), "Pokemons found."
+	def parse_detail(self, response):
+		soup = BeautifulSoup(response.body, "lxml")
+		print soup.h1.text
