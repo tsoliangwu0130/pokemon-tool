@@ -59,53 +59,35 @@ class PokemonCrawler(scrapy.Spider):
 				else:
 					evolution.append(item.text[12:14])
 
-		# for tableIndex, dataTable in enumerate(soup.select('.data-table')):
-		# 	preSiblings = soup.select('.data-table')[tableIndex].previous_siblings
-		# 	for preSibling in preSiblings:
-		# 		if preSibling.name == 'h3':
-		# 			print preSibling.text
+		for tableIndex, dataTable in enumerate(soup.select('.data-table')):
+			preSiblings = soup.select('.data-table')[tableIndex].previous_siblings
 
-			# if preSibling is not None and preSibling.name is not None:
-			# 	print preSibling
-				# if nextSibling.text == "Egg moves":
+			for preSibling in preSiblings:
+				if preSibling.name == 'h3':
 
-				# elif nextSibling.text == "Move Tutor moves":
+					if preSibling.text == "Moves learnt by level up":
+						for item in soup.select('.data-table')[0].tbody.findAll('tr'):
+							lvMoves[item.findAll('td')[0].text] = item.findAll('td')[1].text
 
-				# elif nextSibling.text == "Moves learnt by TM":
+					elif preSibling.text == "Move Tutor moves":
+						for item in soup.select('.data-table')[2].tbody.findAll('tr'):
+							tutorMoves.append(item.td.text)
 
-				# elif nextSibling.text == "Egg moves":
+					elif preSibling.text == "Egg moves":
+						for item in soup.select('.data-table')[1].tbody.findAll('tr'):
+							eggMoves.append(item.td.text)
 
-				# elif nextSibling.text == "Egg moves":
+					elif preSibling.text == "Moves learnt by TM":
+						for item in soup.select('.data-table')[4].tbody.findAll('tr'):
+							tmMoves.append(item.findAll('td')[1].text)
 
-				# elif nextSibling.text == "Egg moves":
+					elif preSibling.text == "Moves learnt by HM":
+						for item in soup.select('.data-table')[3].tbody.findAll('tr'):
+							hmMoves.append(item.findAll('td')[1].text)
 
-				# elif nextSibling.text == "Egg moves":
-
-				# elif nextSibling.text == "Egg moves":
-
-
-		# for item in soup.select('.data-table')[0].tbody.findAll('tr'):
-		# 	lvMoves[item.findAll('td')[0].text] = item.findAll('td')[1].text
-
-
-		# for item in soup.select('.data-table')[1].tbody.findAll('tr'):
-		# 	eggMoves.append(item.td.text)
-
-
-		# for item in soup.select('.data-table')[2].tbody.findAll('tr'):
-		# 	tutorMoves.append(item.td.text)
-
-
-		# for item in soup.select('.data-table')[3].tbody.findAll('tr'):
-		# 	hmMoves.append(item.findAll('td')[1].text)
-
-
-		# for item in soup.select('.data-table')[4].tbody.findAll('tr'):
-		# 	tmMoves.append(item.findAll('td')[1].text)
-
-
-		# for item in soup.select('.data-table')[5].tbody.findAll('tr'):
-		# 	transferMoves.append(item.td.text)
+					elif preSibling.text == "Transfer-only moves":
+						for item in soup.select('.data-table')[5].tbody.findAll('tr'):
+							transferMoves.append(item.td.text)
 
 		# for item in soup.select('.vitals-table')[5].tbody.findAll('tr'):
 		# 	location[item.th.text] = item.td.text
