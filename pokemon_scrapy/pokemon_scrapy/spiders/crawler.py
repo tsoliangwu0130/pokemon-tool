@@ -13,7 +13,7 @@ class PokemonCrawler(scrapy.Spider):
 		for pokemon in soup.select('.infocard-tall'):
 			pokemonURL = domain + pokemon.a.attrs['href']
 			# yield scrapy.Request(pokemonURL, self.parse_detail)
-		yield scrapy.Request("http://pokemondb.net/pokedex/diancie", self.parse_detail)
+		yield scrapy.Request("http://pokemondb.net/pokedex/metapod", self.parse_detail)
 
 	def parse_detail(self, response):
 		soup             = BeautifulSoup(response.body, "lxml")
@@ -89,8 +89,9 @@ class PokemonCrawler(scrapy.Spider):
 						for item in soup.select('.data-table')[5].tbody.findAll('tr'):
 							transferMoves.append(item.td.text)
 
-		# for item in soup.select('.vitals-table')[5].tbody.findAll('tr'):
-		# 	location[item.th.text] = item.td.text
+		if soup.select('#dex-locations')[0].parent.select('.vitals-table') != []:
+			for item in soup.select('.vitals-table')[5].tbody.findAll('tr'):
+				location[item.th.text] = item.td.text
 
 		print "Pokemon:", pokemonName
 		print "National Number:", nationalNumber
