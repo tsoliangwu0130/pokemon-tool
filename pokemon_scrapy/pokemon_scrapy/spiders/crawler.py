@@ -12,8 +12,7 @@ class PokemonCrawler(scrapy.Spider):
 
 		for pokemon in soup.select('.infocard-tall'):
 			pokemonURL = domain + pokemon.a.attrs['href']
-			# yield scrapy.Request(pokemonURL, self.parse_detail)
-		yield scrapy.Request("http://pokemondb.net/pokedex/butterfree", self.parse_detail)
+			yield scrapy.Request(pokemonURL, self.parse_detail)
 
 	def parse_detail(self, response):
 		soup             = BeautifulSoup(response.body, "lxml")
