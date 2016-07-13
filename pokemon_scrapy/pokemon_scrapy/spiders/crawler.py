@@ -13,7 +13,7 @@ class PokemonCrawler(scrapy.Spider):
 		for pokemon in soup.select('.infocard-tall'):
 			pokemonURL = domain + pokemon.a.attrs['href']
 			# yield scrapy.Request(pokemonURL, self.parse_detail)
-		yield scrapy.Request("http://pokemondb.net/pokedex/metapod", self.parse_detail)
+		yield scrapy.Request("http://pokemondb.net/pokedex/butterfree", self.parse_detail)
 
 	def parse_detail(self, response):
 		soup             = BeautifulSoup(response.body, "lxml")
@@ -31,6 +31,7 @@ class PokemonCrawler(scrapy.Spider):
 		hmMoves          = []
 		tmMoves          = []
 		transferMoves    = []
+		preEvlMoves      = []
 		pokemonStats     = dict()
 		lvMoves          = dict()
 		location         = dict()
@@ -57,37 +58,50 @@ class PokemonCrawler(scrapy.Spider):
 				if index % 2 == 0:
 					evolution.append(item.small.text[1:])
 				else:
-					evolution.append(item.text[12:14])
+					evlLv = item.text[12:14]
+					if evlLv[-1] == ')':
+						evlLv = evlLv[0]
+					evolution.append(evlLv)
 
-		for tableIndex, dataTable in enumerate(soup.select('.data-table')):
-			preSiblings = soup.select('.data-table')[tableIndex].previous_siblings
-
+		for dataTable in soup.select('.data-table'):
+			preSiblings = dataTable.previous_siblings
 			for preSibling in preSiblings:
 				if preSibling.name == 'h3':
-
 					if preSibling.text == "Moves learnt by level up":
-						for item in soup.select('.data-table')[0].tbody.findAll('tr'):
+						for item in dataTable.tbody.findAll('tr'):
 							lvMoves[item.findAll('td')[0].text] = item.findAll('td')[1].text
 
 					elif preSibling.text == "Move Tutor moves":
-						for item in soup.select('.data-table')[2].tbody.findAll('tr'):
+						for item in dataTable.tbody.findAll('tr'):
 							tutorMoves.append(item.td.text)
 
+					elif preSibling.text == "Pre-evolution moves":
+						for item in dataTable.tbody.findAll('tr'):
+							preEvlMoves.append(item.td.text)
+
 					elif preSibling.text == "Egg moves":
-						for item in soup.select('.data-table')[1].tbody.findAll('tr'):
+						for item in dataTable.tbody.findAll('tr'):
 							eggMoves.append(item.td.text)
 
 					elif preSibling.text == "Moves learnt by TM":
-						for item in soup.select('.data-table')[4].tbody.findAll('tr'):
+						for item in dataTable.tbody.findAll('tr'):
 							tmMoves.append(item.findAll('td')[1].text)
 
 					elif preSibling.text == "Moves learnt by HM":
-						for item in soup.select('.data-table')[3].tbody.findAll('tr'):
+						for item in dataTable.tbody.findAll('tr'):
 							hmMoves.append(item.findAll('td')[1].text)
 
 					elif preSibling.text == "Transfer-only moves":
-						for item in soup.select('.data-table')[5].tbody.findAll('tr'):
+						for item in dataTable.tbody.findAll('tr'):
 							transferMoves.append(item.td.text)
+					break
+
+		tutorMoves    = list(set(tutorMoves))
+		preEvlMoves   = list(set(preEvlMoves))
+		eggMoves      = list(set(eggMoves))
+		tmMoves       = list(set(tmMoves))
+		hmMoves       = list(set(hmMoves))
+		transferMoves = list(set(transferMoves))
 
 		if soup.select('#dex-locations')[0].parent.select('.vitals-table') != []:
 			for item in soup.select('.vitals-table')[5].tbody.findAll('tr'):
@@ -103,6 +117,7 @@ class PokemonCrawler(scrapy.Spider):
 		print "Level Moves:", lvMoves
 		print "Egg Moves:", eggMoves
 		print "Tutor Moves:", tutorMoves
+		print "Pre-evolution moves:", preEvlMoves
 		print "HM Moves:", hmMoves
 		print "TM Moves:", tmMoves
 		print "Transfer only Moves:", transferMoves
