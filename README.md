@@ -7,5 +7,6 @@ All Pokémon data right reserved by the [original author (Pokémon Database)](ht
 
 ### Usage
 
-#### crawler
-run `scrapy crawl pokemon_crawler` to retrieve data from the URLs.
+#### crawlers
+1. Run `scrapy crawl pokemon_crawler` to retrieve Pokémons data.
+2. Run `scrapy crawl move_crawler` to retrieve Moves data.
