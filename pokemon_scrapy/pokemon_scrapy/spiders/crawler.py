@@ -121,3 +121,26 @@ class PokemonCrawler(scrapy.Spider):
 		print "TM Moves:", tmMoves
 		print "Transfer only Moves:", transferMoves
 		print "Location:", location
+
+
+class MoveCrawler(scrapy.Spider):
+	name       = 'move_crawler'
+	start_urls = ['http://pokemondb.net/move/all']
+
+	def parse(self, response):
+		soup  = BeautifulSoup(response.body, "lxml")
+		moves = soup.select('#moves')[0].find('tbody').findAll('tr')
+
+		pokemonMoves = [[]]
+		for move in moves:
+			pokemonMove = []
+			pokemonMove.append(move.findAll('td')[0].text)
+			pokemonMove.append(move.findAll('td')[1].text)
+			pokemonMove.append(move.findAll('td')[2].text)
+			pokemonMove.append(move.findAll('td')[3].text)
+			pokemonMove.append(move.findAll('td')[4].text)
+			pokemonMove.append(move.findAll('td')[5].text)
+			pokemonMove.append(move.findAll('td')[6].text)
+			pokemonMove.append(move.findAll('td')[7].text)
+			pokemonMove.append(move.findAll('td')[8].text)
+			pokemonMoves.append(pokemonMove)
