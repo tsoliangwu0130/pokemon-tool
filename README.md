@@ -8,5 +8,5 @@ All Pokémon data right reserved by the [original author (Pokémon Database)](ht
 ### Usage
 
 #### crawlers
-1. Run `scrapy crawl pokemon_crawler` to retrieve Pokémons data.
-2. Run `scrapy crawl move_crawler` to retrieve Moves data.
+1. Run `scrapy crawl pokemon_crawler -o pokemon_crawler.json -t json` to retrieve Pokémons data and restore as a json file.
+2. Run `scrapy crawl move_crawler -o move_crawler.json -t json` to retrieve Moves data and restore as a json file.
