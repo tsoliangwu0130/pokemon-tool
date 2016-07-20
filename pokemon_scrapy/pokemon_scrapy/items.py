@@ -9,6 +9,20 @@ import scrapy
 
 
 class PokemonScrapyItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+	pokemonName      = scrapy.Field()
+	nationalNumber   = scrapy.Field()
+	pokemonTypes     = scrapy.Field()
+	gender           = scrapy.Field()
+	eggCycle         = scrapy.Field()
+	pokemonAbilities = scrapy.Field()
+	catchRate        = scrapy.Field()
+	pokemonStats     = scrapy.Field()
+	evolution        = scrapy.Field()
+	lvMoves          = scrapy.Field()
+	eggMoves         = scrapy.Field()
+	tutorMoves       = scrapy.Field()
+	preEvlMoves      = scrapy.Field()
+	hmMoves          = scrapy.Field()
+	tmMoves          = scrapy.Field()
+	transferMoves    = scrapy.Field()
+	location         = scrapy.Field()
