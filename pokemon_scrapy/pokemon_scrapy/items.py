@@ -27,3 +27,7 @@ class PokemonScrapyItem(scrapy.Item):
 	tmMoves          = scrapy.Field()
 	transferMoves    = scrapy.Field()
 	location         = scrapy.Field()
+
+
+class PokemonMovesScrapyItem(scrapy.Item):
+	pokemonMoves = scrapy.Field()

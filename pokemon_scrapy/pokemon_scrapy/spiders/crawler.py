@@ -1,6 +1,7 @@
 import scrapy
 from bs4 import BeautifulSoup
 from pokemon_scrapy.items import PokemonScrapyItem
+from pokemon_scrapy.items import PokemonMovesScrapyItem
 
 
 class PokemonCrawler(scrapy.Spider):
@@ -116,10 +117,11 @@ class MoveCrawler(scrapy.Spider):
 	start_urls = ['http://pokemondb.net/move/all']
 
 	def parse(self, response):
-		soup  = BeautifulSoup(response.body, "lxml")
-		moves = soup.select('#moves')[0].find('tbody').findAll('tr')
+		soup             = BeautifulSoup(response.body, "lxml")
+		moves            = soup.select('#moves')[0].find('tbody').findAll('tr')
+		pokemonMovesItem = PokemonMovesScrapyItem()
 
-		pokemonMoves = [[]]
+		pokemonMovesItem['pokemonMoves'] = [[]]
 		for move in moves:
 			pokemonMove = []
 			pokemonMove.append(move.findAll('td')[0].text)
@@ -131,4 +133,6 @@ class MoveCrawler(scrapy.Spider):
 			pokemonMove.append(move.findAll('td')[6].text)
 			pokemonMove.append(move.findAll('td')[7].text)
 			pokemonMove.append(move.findAll('td')[8].text)
-			pokemonMoves.append(pokemonMove)
+			pokemonMovesItem['pokemonMoves'].append(pokemonMove)
+
+		return pokemonMovesItem
