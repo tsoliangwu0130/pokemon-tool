@@ -14,6 +14,7 @@ class PokemonScrapyItem(scrapy.Item):
 	pokemonTypes     = scrapy.Field()
 	gender           = scrapy.Field()
 	eggCycle         = scrapy.Field()
+	eggGroup         = scrapy.Field()
 	pokemonAbilities = scrapy.Field()
 	catchRate        = scrapy.Field()
 	pokemonStats     = scrapy.Field()
