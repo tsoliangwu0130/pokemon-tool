@@ -30,4 +30,12 @@ class PokemonScrapyItem(scrapy.Item):
 
 
 class PokemonMovesScrapyItem(scrapy.Item):
-	pokemonMoves = scrapy.Field()
+	moveName   = scrapy.Field()
+	moveType   = scrapy.Field()
+	moveCate   = scrapy.Field()
+	movePower  = scrapy.Field()
+	moveAcc    = scrapy.Field()
+	movePP     = scrapy.Field()
+	moveTM     = scrapy.Field()
+	moveEffect = scrapy.Field()
+	moveProb   = scrapy.Field()

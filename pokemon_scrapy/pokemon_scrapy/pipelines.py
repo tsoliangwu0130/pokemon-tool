@@ -4,8 +4,21 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import sqlite3
 
 
-class PokemonScrapyPipeline(object):
-    def process_item(self, item, spider):
-        return item
+class MovesScrapyPipeline(object):
+	def open_spider(self, spider):
+		self.conn = sqlite3.connect('moves.sqlite')
+		self.cur  = self.conn.cursor()
+		self.cur.execute("""
+			CREATE TABLE IF NOT EXISTS MOVES(
+
+			)""")
+
+	def close_spider(self, spider):
+		self.conn.commit()
+		self.conn.close()
+
+	def process_item(self, item, spider):
+		return item

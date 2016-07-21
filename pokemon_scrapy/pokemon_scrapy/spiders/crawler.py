@@ -121,18 +121,15 @@ class MoveCrawler(scrapy.Spider):
 		moves            = soup.select('#moves')[0].find('tbody').findAll('tr')
 		pokemonMovesItem = PokemonMovesScrapyItem()
 
-		pokemonMovesItem['pokemonMoves'] = [[]]
 		for move in moves:
-			pokemonMove = []
-			pokemonMove.append(move.findAll('td')[0].text)
-			pokemonMove.append(move.findAll('td')[1].text)
-			pokemonMove.append(move.findAll('td')[2].text)
-			pokemonMove.append(move.findAll('td')[3].text)
-			pokemonMove.append(move.findAll('td')[4].text)
-			pokemonMove.append(move.findAll('td')[5].text)
-			pokemonMove.append(move.findAll('td')[6].text)
-			pokemonMove.append(move.findAll('td')[7].text)
-			pokemonMove.append(move.findAll('td')[8].text)
-			pokemonMovesItem['pokemonMoves'].append(pokemonMove)
+			pokemonMovesItem['moveName']   = move.findAll('td')[0].text
+			pokemonMovesItem['moveType']   = move.findAll('td')[1].text
+			pokemonMovesItem['moveCate']   = move.findAll('td')[2].text
+			pokemonMovesItem['movePower']  = move.findAll('td')[3].text
+			pokemonMovesItem['moveAcc']    = move.findAll('td')[4].text
+			pokemonMovesItem['movePP']     = move.findAll('td')[5].text
+			pokemonMovesItem['moveTM']     = move.findAll('td')[6].text
+			pokemonMovesItem['moveEffect'] = move.findAll('td')[7].text
+			pokemonMovesItem['moveProb']   = move.findAll('td')[8].text
 
-		return pokemonMovesItem
+			yield pokemonMovesItem
