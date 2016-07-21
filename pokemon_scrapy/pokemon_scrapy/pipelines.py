@@ -13,7 +13,15 @@ class MovesScrapyPipeline(object):
 		self.cur  = self.conn.cursor()
 		self.cur.execute("""
 			CREATE TABLE IF NOT EXISTS MOVES(
-
+				moveName TEXT,
+				moveType TEXT,
+				moveCate TEXT,
+				movePower INTEGER,
+				moveAcc INTEGER,
+				movePP INTEGER,
+				moveTM TEXT,
+				moveEffect TEXT,
+				moveProb INTEGER
 			)""")
 
 	def close_spider(self, spider):
