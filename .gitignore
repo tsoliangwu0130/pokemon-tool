@@ -3,3 +3,6 @@
 
 # json files
 *.json
+
+# sqlite
+*.sqlite
