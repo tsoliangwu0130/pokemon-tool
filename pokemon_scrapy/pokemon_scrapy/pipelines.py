@@ -29,4 +29,11 @@ class MovesScrapyPipeline(object):
 		self.conn.close()
 
 	def process_item(self, item, spider):
+		col         = ','.join(item.keys())
+		placeholder = ','.join(len(item) * '?')
+		sql         = """
+			INSERT INTO MOVES({})
+			VALUES({})
+		"""
+		self.cur.execute(sql.format(col, placeholder), item.values())
 		return item
