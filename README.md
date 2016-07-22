@@ -11,6 +11,10 @@ All Pokémon data right reserved by the [original author (Pokémon Database)](ht
 
 #### crawlers
 
-Run the following command to retrieve Pokémons data and restore as a json file:
+Run the following command to retrieve Pokémons data and save to the database:
+	
+	`scrapy crawl <crawlerName>`
+
+or run the following command to retrieve Pokémons data and restore as a json file:
 	
 	`scrapy crawl <crawlerName> -o <outputName>.json -t json`
