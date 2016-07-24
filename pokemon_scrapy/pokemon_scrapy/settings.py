@@ -9,9 +9,8 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'pokemon_scrapy'
-
-SPIDER_MODULES = ['pokemon_scrapy.spiders']
+BOT_NAME         = 'pokemon_scrapy'
+SPIDER_MODULES   = ['pokemon_scrapy.spiders']
 NEWSPIDER_MODULE = 'pokemon_scrapy.spiders'
 
 
