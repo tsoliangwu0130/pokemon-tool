@@ -13,6 +13,7 @@ class MovesScrapyPipeline(object):
 		self.cur  = self.conn.cursor()
 		self.cur.execute("""
 			CREATE TABLE IF NOT EXISTS MOVES(
+				id INTEGER PRIMARY KEY AUTOINCREMENT,
 				moveName TEXT,
 				moveType TEXT,
 				moveCate TEXT,
