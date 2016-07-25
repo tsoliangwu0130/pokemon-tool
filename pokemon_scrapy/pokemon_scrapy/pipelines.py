@@ -15,14 +15,9 @@ class PokemonScrapyPipeline(object):
 			CREATE TABLE IF NOT EXISTS POKEMONS(
 				nationalNumber INTEGER PRIMARY KEY,
 				pokemonName TEXT,
-				pokemonTypes TEXT,
 				gender TEXT,
 				eggCycle TEXT,
-				eggGroup TEXT,
-				pokemonAbilities TEXT,
 				catchRate TEXT,
-				pokemonStats TEXT,
-				evolution TEXT,
 				lvMoves TEXT,
 				eggMoves TEXT,
 				tutorMoves TEXT,
@@ -31,20 +26,60 @@ class PokemonScrapyPipeline(object):
 				tmMoves TEXT,
 				transferMoves TEXT,
 				location TEXT
-			)""")
+			)
+		""")
+
+		self.cur.execute("""
+			CREATE TABLE IF NOT EXISTS TYPES(
+				nationalNumber INTEGER PRIMARY KEY,
+				pokemonType1 TEXT,
+				pokemonType2 TEXT
+			)
+		""")
+
+		self.cur.execute("""
+			CREATE TABLE IF NOT EXISTS ABILITIES(
+				nationalNumber INTEGER PRIMARY KEY,
+				ability1 TEXT,
+				ability2 TEXT,
+				abilityHidden TEXT
+			)
+		""")
+
+		self.cur.execute("""
+			CREATE TABLE IF NOT EXISTS EGGGROUPS(
+				nationalNumber INTEGER PRIMARY KEY,
+				eggGroup1 TEXT,
+				eggGroup2 TEXT,
+				eggGroup3 TEXT
+			)
+		""")
+
+		self.cur.execute("""
+			CREATE TABLE IF NOT EXISTS STATUS(
+				nationalNumber INTEGER PRIMARY KEY,
+				hp INTEGER,
+				attack INTEGER,
+				defense INTEGER,
+				spAttack INTEGER,
+				spDefense INTEGER,
+				speed INTEGER,
+				total INTEGER
+			)
+		""")
 
 	def close_spider(self, spider):
 		self.conn.commit()
 		self.conn.close()
 
 	def process_item(self, item, spider):
-		col         = ','.join(item.keys())
-		placeholder = ','.join(len(item) * '?')
-		sql         = """
-			INSERT INTO POKEMONS({})
-			VALUES({})
-		"""
-		self.cur.execute(sql.format(col, placeholder), item.values())
+		# col         = ','.join(item.keys())
+		# placeholder = ','.join(len(item) * '?')
+		# sql         = """
+		# 	INSERT INTO POKEMONS({})
+		# 	VALUES({})
+		# """
+		# self.cur.execute(sql.format(col, placeholder), item.values())
 		return item
 
 
@@ -54,7 +89,7 @@ class MovesScrapyPipeline(object):
 		self.cur  = self.conn.cursor()
 		self.cur.execute("""
 			CREATE TABLE IF NOT EXISTS MOVES(
-				id INTEGER PRIMARY KEY AUTOINCREMENT,
+				moveId INTEGER PRIMARY KEY AUTOINCREMENT,
 				moveName TEXT,
 				moveType TEXT,
 				moveCate TEXT,
@@ -64,7 +99,8 @@ class MovesScrapyPipeline(object):
 				moveTM TEXT,
 				moveEffect TEXT,
 				moveProb INTEGER
-			)""")
+			)
+		""")
 
 	def close_spider(self, spider):
 		self.conn.commit()

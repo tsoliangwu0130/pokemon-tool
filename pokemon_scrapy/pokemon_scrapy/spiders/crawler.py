@@ -27,7 +27,7 @@ class PokemonCrawler(scrapy.Spider):
 		pokemonItem['pokemonTypes']     = []
 		pokemonItem['pokemonAbilities'] = []
 		pokemonItem['eggGroup']         = []
-		pokemonItem['evolution']        = []
+		# pokemonItem['evolution']        = []
 		pokemonItem['eggMoves']         = []
 		pokemonItem['tutorMoves']       = []
 		pokemonItem['hmMoves']          = []
@@ -58,12 +58,14 @@ class PokemonCrawler(scrapy.Spider):
 		if soup.select('.infocard-evo-list') != []:
 			for index, item in enumerate(soup.select('.infocard-evo-list')[0].findAll('span')):
 				if index % 2 == 0:
-					pokemonItem['evolution'].append(item.small.text[1:])
+					# pokemonItem['evolution'].append(item.small.text[1:])
+					pass
 				else:
 					evlLv = item.text[12:14]
 					if evlLv[-1] == ')':
 						evlLv = evlLv[0]
-					pokemonItem['evolution'].append(evlLv)
+					# pokemonItem['evolution'].append(evlLv)
+					pass
 
 		for dataTable in soup.select('.data-table'):
 			preSiblings = dataTable.previous_siblings

@@ -18,7 +18,7 @@ class PokemonScrapyItem(scrapy.Item):
 	pokemonAbilities = scrapy.Field()
 	catchRate        = scrapy.Field()
 	pokemonStats     = scrapy.Field()
-	evolution        = scrapy.Field()
+	# evolution        = scrapy.Field()
 	lvMoves          = scrapy.Field()
 	eggMoves         = scrapy.Field()
 	tutorMoves       = scrapy.Field()
