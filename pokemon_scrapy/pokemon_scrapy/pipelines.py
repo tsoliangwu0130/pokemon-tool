@@ -29,45 +29,6 @@ class PokemonScrapyPipeline(object):
 			)
 		""")
 
-		self.cur.execute("""
-			CREATE TABLE IF NOT EXISTS TYPES(
-				nationalNumber INTEGER PRIMARY KEY,
-				pokemonType1 TEXT,
-				pokemonType2 TEXT
-			)
-		""")
-
-		self.cur.execute("""
-			CREATE TABLE IF NOT EXISTS ABILITIES(
-				nationalNumber INTEGER PRIMARY KEY,
-				ability1 TEXT,
-				ability2 TEXT,
-				abilityHidden TEXT
-			)
-		""")
-
-		self.cur.execute("""
-			CREATE TABLE IF NOT EXISTS EGGGROUPS(
-				nationalNumber INTEGER PRIMARY KEY,
-				eggGroup1 TEXT,
-				eggGroup2 TEXT,
-				eggGroup3 TEXT
-			)
-		""")
-
-		self.cur.execute("""
-			CREATE TABLE IF NOT EXISTS STATUS(
-				nationalNumber INTEGER PRIMARY KEY,
-				hp INTEGER,
-				attack INTEGER,
-				defense INTEGER,
-				spAttack INTEGER,
-				spDefense INTEGER,
-				speed INTEGER,
-				total INTEGER
-			)
-		""")
-
 	def close_spider(self, spider):
 		self.conn.commit()
 		self.conn.close()
